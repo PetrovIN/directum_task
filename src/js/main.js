@@ -174,42 +174,39 @@ const EXAMPLE = {
     }
 };
 
-const RRR = [];
+const TYPES = [];
 const ABC = [];
-const ABB = [];
 
 export default class Main extends React.Component {
     constructor(props) {
         super(props);
-        this.bb = [];
-        this.cc = 0;
+        this.json = [];
     }
 
-    aa() {
-        this.bb.push(EXAMPLE);
-        this.cc = this.bb.map(function(index) {
-            return index.form.items.forEach(function (dd) {
-                if (dd.attributes.options !== undefined) {
-                    ABC.push(dd.attributes.options)
+    getArgs() {
+        this.json.push(EXAMPLE);
+        this.json.map(function(index) {
+            return index.form.items.forEach(function (item) {
+                if (item.attributes.options !== undefined) {
+                    ABC.push(item.attributes.options)
                 }
-                if (dd.attributes.validationRules !== undefined) {
-                    ABC.push(dd.attributes.validationRules)
+                if (item.attributes.validationRules !== undefined) {
+                    ABC.push(item.attributes.validationRules)
                 }
-                if (dd.attributes.items !== undefined) {
-                    ABC.push(dd.attributes.items)
+                if (item.attributes.items !== undefined) {
+                    ABC.push(item.attributes.items)
                 }
-                RRR.push(dd);
+                TYPES.push(item);
             })
         });
-        //console.log(ABB);
     }
 
     render() {
         return(
             <div>
-                { this.aa() }
+                { this.getArgs() }
                 <form>{
-                    RRR.map(function(i) {
+                    TYPES.map(function(i) {
                         if (i.type === 'filler' || i.type === 'text' || i.type === 'button' || i.type === 'checkbox' || i.type === 'radio') {
                             return [<br></br>,
                                 createElement('label', {}, i.attributes.label),
@@ -220,7 +217,7 @@ export default class Main extends React.Component {
                                     name: i.attributes.name,
                                     placeholder: i.attributes.placeholder,
                                     required: i.attributes.required,
-                                    value: i.attributes.value,
+                                    defaultValue: i.attributes.value,
                                     class: i.attributes.class,
                                     validationRules: '',
                                     disabled: i.attributes.disabled,
@@ -237,9 +234,9 @@ export default class Main extends React.Component {
                                         name: i.attributes.name,
                                         placeholder: i.attributes.placeholder,
                                         required: i.attributes.required,
-                                        value: i.attributes.value,
+                                        defaultValue: i.attributes.value,
                                         class: i.attributes.class,
-                                        options: ABC.map((kk) => kk.forEach((hh) => hh.text)),
+                                        options:'', //ABC.map((kk) => kk.forEach((hh) => hh.text)),
                                         disabled: i.attributes.disabled,
                                     },
                                     null)]
